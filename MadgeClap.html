@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>不要再偷懶了</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .emote-container {
+            display: flex;
+            justify-content: space-between;
+            flex: 1;
+        }
+        .emote-container span {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .emote-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .marquee-container {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            box-sizing: border-box;
+            flex: 0 0 auto;
+        }
+        .marquee-content {
+            display: inline-block;
+            padding-right: 50px;
+            animation: marquee 30s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="emote-container">
+        <span><img src="https://cdn.7tv.app/emote/6496d5deb8a4f964fc15c3e9/4x.webp" alt="madgeclap1"></span>
+        <span><img src="https://cdn.7tv.app/emote/6496d5f646003b0dcb960698/4x.webp" alt="madgeclap2"></span>
+        <span><img src="https://cdn.7tv.app/emote/6496d602f7f42cf2400fce52/4x.webp" alt="madgeclap3"></span>
+        <span><img src="https://cdn.7tv.app/emote/6496d63220093dc8244adf47/4x.webp" alt="madgeclap4"></span>
+    </div>
+    <div class="marquee-container">
+        <div class="marquee-content">
+            <span>你不是來找題目的嗎，快點去解！</span>
+        </div>
+    </div>
+    <div class="emote-container">
+        <span><img src="https://cdn.7tv.app/emote/6496d647f8b2f47e4bee7829/4x.webp" alt="madgeclap5"></span>
+        <span><img src="https://cdn.7tv.app/emote/6496d660f8b2f47e4bee782e/4x.webp" alt="madgeclap6"></span>
+        <span><img src="https://cdn.7tv.app/emote/6496d6859d5c326b4e979dbb/4x.webp" alt="madgeclap7"></span>
+        <span><img src="https://cdn.7tv.app/emote/6496d693f7f42cf2400fce75/4x.webp" alt="madgeclap8"></span>
+    </div>
+
+    <script>
+        function adjustSizes() {
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            const marqueeContent = document.querySelector('.marquee-content');
+            const marqueeSpan = marqueeContent.querySelector('span');
+            const emoteContainers = document.querySelectorAll('.emote-container');
+            
+            
+            if (windowWidth > windowHeight) {
+                marqueeSpan.style.fontSize = `${windowHeight * 0.1}px`;
+            } else {
+                marqueeSpan.style.fontSize = `${windowWidth * 0.1}px`;
+            }
+
+            
+            const containerHeight = (windowHeight - document.querySelector('.marquee-container').offsetHeight) / 2;
+            emoteContainers.forEach(container => {
+                container.style.height = `${containerHeight}px`;
+            });
+
+            
+            const textWidth = marqueeSpan.offsetWidth;
+            const minRepeatCount = Math.ceil(windowWidth / textWidth) + 1;
+            const extraRepeatFactor = 100; 
+            const repeatCount = minRepeatCount * extraRepeatFactor;
+            marqueeContent.innerHTML = marqueeSpan.outerHTML.repeat(repeatCount);
+
+            
+            const totalWidth = textWidth * repeatCount;
+            const animationDuration = totalWidth / 50; 
+            marqueeContent.style.animationDuration = `${animationDuration}s`;
+        }
+
+        window.addEventListener('load', adjustSizes);
+        window.addEventListener('resize', adjustSizes);
+    </script>
+</body>
+</html>
