@@ -16,6 +16,7 @@
             margin: 0;
             flex-direction: column;
             text-align: center;
+            user-select: none;
         }
         .container {
             aspect-ratio: 1 / 1;
@@ -43,7 +44,6 @@
         }
         .signature {
             text-align: right;
-            user-select: none;
         }
         .message-box {
             position: fixed;
@@ -52,7 +52,8 @@
             padding: 20px;
             box-shadow: 0 0 20px rgba(0, 255, 0, 0.7);
             z-index: 100;
-            width: 200px;
+            width: 250px;
+            height: 100px;
             text-align: center;
         }
         .message-box button {
@@ -63,14 +64,62 @@
             margin-top: 10px;
             cursor: pointer;
         }
+        /* Typewriter container style */
+        .typewriter-container {
+            height: 60px; /* Fixed height to prevent container deformation */
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        /* Typewriter text style - first line */
+        .typewriter {
+            overflow: hidden;
+            white-space: nowrap;
+            margin: 0 auto;
+            border-right: 0.15em solid #0f0; /* Cursor */
+            animation: 
+                typing 3.5s steps(40, end),
+                blink-caret 0.75s step-end infinite,
+                remove-cursor 0.1s forwards 4s; /* Remove cursor at 4s */
+            max-width: fit-content; /* Controls width expansion */
+        }
+        /* Second line waits for first to finish */
+        .typewriter-delayed {
+            overflow: hidden;
+            white-space: nowrap;
+            margin: 0 auto;
+            opacity: 0;
+            border-right: 0.15em solid #0f0; /* Cursor */
+            animation: 
+                typing 3.5s steps(40, end) 4s forwards, 
+                blink-caret 0.75s step-end infinite 4s;
+            max-width: fit-content; /* Controls width expansion */
+        }
+        /* Typing animation */
+        @keyframes typing {
+            from { width: 0; opacity: 1; }
+            to { width: 100%; opacity: 1; }
+        }
+        /* Blinking cursor animation */
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #0f0; }
+        }
+        /* Animation to remove the cursor */
+        @keyframes remove-cursor {
+            to { border-color: transparent; }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Sorry, No Flag Here!</h1>
         
-        <p>This file is just a decoy.</p>
-        <p>The flag you're looking for is elsewhere in the challenge.</p>
+        <div class="typewriter-container">
+            <p class="typewriter">This file is just a decoy.</p>
+            <p class="typewriter-delayed">The flag you're looking for is elsewhere in the challenge.</p>
+        </div>
         
         <div class="ascii-art">
 /\                          
@@ -106,7 +155,7 @@
             Hint: Sometimes the journey is more important than the destination.
         </div>
 
-        <p class="signature" id="signature">-Niiixkz</p>
+        <p class="signature">-Niiixkz</p>
     </div>
     
     <script>
@@ -145,7 +194,7 @@
             return messageBox;
         }
         
-        document.getElementById("signature").addEventListener("click", function() {
+        document.querySelector('.container').addEventListener("click", function() {
             const originalText = "Sorry, No Flag Here!"
             const scrambleInterval = setInterval(() => {
                 document.querySelector('h1').innerText = originalText
