@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>No Flag Here</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #000;
+            color: #0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+            text-align: center;
+        }
+        .container {
+            aspect-ratio: 1 / 1;
+            max-width: 800px;
+            padding: 20px;
+            border: 1px solid #0f0;
+            box-shadow: 0 0 10px #0f0;
+        }
+        h1 {
+            color: #f00;
+        }
+        .hidden-comment {
+            display: none;
+        }
+        .ascii-art {
+            font-size: 12px;
+            line-height: 12px;
+            white-space: pre;
+            margin: 30px 0;
+        }
+        .hint {
+            color: #888;
+            font-size: 12px;
+            margin-top: 40px;
+        }
+        .signature {
+            text-align: right;
+            user-select: none;
+        }
+        .message-box {
+            position: fixed;
+            background-color: #000;
+            border: 2px solid #0f0;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.7);
+            z-index: 100;
+            width: 200px;
+            text-align: center;
+        }
+        .message-box button {
+            background-color: #0f0;
+            color: #000;
+            border: none;
+            padding: 5px 10px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sorry, No Flag Here!</h1>
+        
+        <p>This file is just a decoy.</p>
+        <p>The flag you're looking for is elsewhere in the challenge.</p>
+        
+        <div class="ascii-art">
+/\                          
+||_____-----_____-----_____ 
+||                         \
+||                         /
+||                         \
+||                         /
+||                         \
+||                         /
+||                         \
+||                         /
+||_____-----_____-----_____\
+||                          
+||                          
+||                          
+||                          
+||                          
+||                          
+||                          
+||                          
+||                          
+||                          
+||                          
+||                          
+||                          
+||                          
+        </div>
+
+        <!-- This comment is meant to waste your time. There's nothing here. -->
+        
+        <div class="hint">
+            Hint: Sometimes the journey is more important than the destination.
+        </div>
+
+        <p class="signature" id="signature">-Niiixkz</p>
+    </div>
+    
+    <script>
+        console.log("Still no flag here...");
+        
+        setTimeout(() => {
+            console.log("You're wasting your time looking at the console!");
+        }, 5000);
+        
+        function createRandomMessageBox() {
+            const messageBox = document.createElement('div');
+            messageBox.className = 'message-box';
+            
+            messageBox.innerHTML = '<p>Still no flag here...</p><button class="close-btn">OK</button>';
+            
+            const maxX = window.innerWidth - 220;
+            const maxY = window.innerHeight - 120;
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+            
+            messageBox.style.left = randomX + 'px';
+            messageBox.style.top = randomY + 'px';
+            
+            document.body.appendChild(messageBox);
+            
+            messageBox.querySelector('.close-btn').addEventListener('click', function() {
+                document.body.removeChild(messageBox);
+            });
+            
+            setTimeout(() => {
+                if (messageBox.parentNode) {
+                    document.body.removeChild(messageBox);
+                }
+            }, 1000);
+            
+            return messageBox;
+        }
+        
+        document.getElementById("signature").addEventListener("click", function() {
+            const originalText = document.querySelector('h1').innerText;
+            const scrambleInterval = setInterval(() => {
+                document.querySelector('h1').innerText = originalText
+                    .split('')
+                    .map(char => Math.random() > 0.5 ? String.fromCharCode(Math.floor(Math.random() * 26) + 97) : char)
+                    .join('');
+            }, 50);
+            
+            setTimeout(() => {
+                clearInterval(scrambleInterval);
+                document.querySelector('h1').innerText = originalText;
+            }, 1000);
+            
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    createRandomMessageBox();
+                }, i * 100);
+            }
+        });
+    </script>
+</body>
+</html>
