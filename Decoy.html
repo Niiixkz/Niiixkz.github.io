@@ -64,49 +64,49 @@
             margin-top: 10px;
             cursor: pointer;
         }
-        /* Typewriter container style */
+
         .typewriter-container {
-            height: 60px; /* Fixed height to prevent container deformation */
+            height: 60px;
             margin: 20px 0;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
-        /* Typewriter text style - first line */
+
         .typewriter {
             overflow: hidden;
             white-space: nowrap;
             margin: 0 auto;
-            border-right: 0.15em solid #0f0; /* Cursor */
+            border-right: 0.15em solid #0f0;
             animation: 
                 typing 3.5s steps(40, end),
                 blink-caret 0.75s step-end infinite,
-                remove-cursor 0.1s forwards 4s; /* Remove cursor at 4s */
-            max-width: fit-content; /* Controls width expansion */
+                remove-cursor 0.1s forwards 4s;
+            max-width: fit-content;
         }
-        /* Second line waits for first to finish */
+
         .typewriter-delayed {
             overflow: hidden;
             white-space: nowrap;
             margin: 0 auto;
             opacity: 0;
-            border-right: 0.15em solid #0f0; /* Cursor */
+            border-right: 0.15em solid #0f0;
             animation: 
                 typing 3.5s steps(40, end) 4s forwards, 
                 blink-caret 0.75s step-end infinite 4s;
-            max-width: fit-content; /* Controls width expansion */
+            max-width: fit-content;
         }
-        /* Typing animation */
+
         @keyframes typing {
             from { width: 0; opacity: 1; }
             to { width: 100%; opacity: 1; }
         }
-        /* Blinking cursor animation */
+
         @keyframes blink-caret {
             from, to { border-color: transparent; }
             50% { border-color: #0f0; }
         }
-        /* Animation to remove the cursor */
+
         @keyframes remove-cursor {
             to { border-color: transparent; }
         }
@@ -214,6 +214,24 @@
                 }, i * 100);
             }
         });
+
+        setTimeout(() => {
+            const message = document.createElement("div");
+            message.innerText = "Why are you still here...";
+            message.style.position = "fixed";
+            message.style.bottom = "10px";
+            message.style.right = "10px";
+            message.style.color = "#0f0";
+            message.style.fontSize = "14px";
+            message.style.opacity = "0";
+            message.style.transition = "opacity 2s";
+
+            document.body.appendChild(message);
+
+            setTimeout(() => {
+                message.style.opacity = "1";
+            }, 500);
+        }, 30000);
     </script>
 </body>
 </html>
